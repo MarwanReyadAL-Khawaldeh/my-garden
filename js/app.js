@@ -1,90 +1,117 @@
 'use strict';
 
-let flower = function (name, img, season) {
+const Flower = function (name, imgName, season) {
     this.name = name;
-    this.img = img;
+    this.imgName = imgName;
+    this.path = `../img/${this.imgName.toLowerCase()}.jpeg`;
     this.season = season;
-    flower.all(this);
-};
-flower.all = [];
-
-flower.prototype.addLocalStorage = function () {
-    localStorage.setItem('data', JSON.stringify(flower.all));
+    Flower.all.push(this);
 };
 
+Flower.all = [];
+
+if (localStorage.data) {
+    Flower.all = JSON.parse(localStorage.getItem('flower'));
+}
+
+Flower.prototype.addToLocalStorage = function () {
+    localStorage.setItem('flower', JSON.stringify(Flower.all));
+};
 
 
 
-let handelSubmit = function (event) {
+
+const handelSubmit = function (event) {
     event.preventDefault();
-    let flower = new flower(document.getElementById('name').value, document.getElementById('img').value, document.getElementById('season').value);
-    flower.addLocalStorage();
+    let flowerName = event.target.name.value;
+    let flowerimg = event.target.img.value;
+    let flowerSeason = event.target.season.value;
+
+    let flower = new Flower(flowerName, flowerimg, flowerSeason);
+    flower.addToLocalStorage();
     render();
 };
 
 
 let body = document.getElementById('body');
 let render = function () {
-    if (localStorage.data)
-        for (let i = 0; i < localStorage.JSON.parse(flower.all).length; i++) {
+    if (localStorage.flower)
+        body.innerHTML = '';
+    let trTag = document.createElement('tr');
 
-
-            let trTag = document.getElementById('tr');
-            body.appendChild(trTag);
-            let thTag = document.getElementById('th');
-            trTag.appendChild(thTag);
-            thTag.textContent = '#';
-
-            thTag.creatElement('th');
-            trTag.appendChild(thTag);
-            thTag.textContent = 'image';
-
-            thTag.creatElement('th');
-            trTag.appendChild(thTag);
-            thTag.textContent = 'Season';
-
-
-            let tdTag = document.getElementById('td');
-            trTag.appendChild(tdTag);
-            tdTag.textContent = 'x' + deletefrom();
-
-
-            tdTag = document.getElementById('td');
-            trTag.appendChild(tdTag);
-            tdTag.textContent = flower.all[i].img;
-
-
-            tdTag = document.getElementById('td');
-            trTag.appendChild(tdTag);
-            tdTag.textContent = flower.all.name;
-
-            tdTag = document.getElementById('td');
-            trTag.appendChild(tdTag);
-            tdTag.textContent = flower.all.season;
+    let thTag1 = document.createElement('th');
+    trTag.appendChild(thTag1);
+    thTag1.textContent = '#';
 
 
 
-        }
+    let thTag2 = document.createElement('th');
+    trTag.appendChild(thTag2);
+    thTag2.textContent = 'image';
 
-};
+    let thTag3 = document.createElement('th');
+    trTag.appendChild(thTag3);
+    thTag3.textContent = 'name';
 
-let deletefrom = function () {
-    flower.all = [];
-    for (let i = 0; i < localStorage.JSON.parse(flower.all).length; i++) {
-        localStorage.setItem('data', JSON.stringify(flower.all));
+    let thTag4 = document.createElement('th');
+    trTag.appendChild(thTag4);
+    thTag4.textContent = 'Season';
+    body.appendChild(trTag);
+    for (let i = 0; i < JSON.parse(localStorage.getItem('flower')).length; i++) {
+
+
+
+
+
+        // let tdTag = document.createElement('td');
+        // trTag.appendChild(tdTag);
+        // tdTag.textContent = 'x' + deletefrom();
+
+        let trTag2 = document.createElement('tr');
+
+
+        let tdTag5 = document.createElement('td');
+        trTag2.appendChild(tdTag5);
+        tdTag5.textContent = 'X';
+
+
+        let tdTag6 = document.createElement('td');
+        trTag2.appendChild(tdTag6);
+        tdTag6.innerHTML = `<img src='${Flower.all[i].path}'/>`;
+
+
+        let tdTag7 = document.createElement('td');
+        trTag2.appendChild(tdTag7);
+        tdTag7.textContent = Flower.all[i].name;
+
+        let tdTag8 = document.createElement('td');
+        trTag2.appendChild(tdTag8);
+        tdTag8.textContent = Flower.all[i].season;
+
+        body.appendChild(trTag2);
+
     }
+
 };
+
+// let deletefrom = function () {
+//     Flower.all = [];
+//     for (let i = 0; i < JSON.parse(localStorage.getItem('flower')).length; i++) {
+//         localStorage.setItem('data', JSON.stringify(Flower.all));
+//     }
+// };
 
 let addlocalstorageToArray = function () {
-    if (localStorage.data) {
-        for (let i = 0; i < JSON.parse(localStorage.data).length; i++) {
-            flower.all.push(localStorage.data)[i];
+    if (localStorage.flower) {
+        for (let i = 0; i < JSON.parse(localStorage.flower).length; i++) {
+            Flower.all.push(JSON.parse(localStorage.flower)[i]);
 
         }
     }
 };
 
-let form = document.addEventListener('submit', handelSubmit);
+let form = document.getElementById('form');
+form.addEventListener('submit', handelSubmit);
 addlocalstorageToArray();
 
 render();

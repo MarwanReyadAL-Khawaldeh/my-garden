@@ -1,21 +1,42 @@
-body{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+body {
     height: 100vh;
-
-}
-
-header{
+  }
+  
+  img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  header {
+    background: #3f8f8d;
+    color: #fff;
     text-align: center;
-    background-color: #5dc0a6;
-}
-
-main{
+    padding: 25px;
+  }
+  header h1 {
+    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+  }
+  
+  footer {
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    background: #5dc0a6;
+    width: 100%;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+  }
+  
+  main {
+    padding-top: 70px;
+    width: 960px;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-}
+  }
 
 .form{
     display: flex;
@@ -28,6 +49,10 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+}
+th,td{
+    border: 1px solid black;
 }
 
 footer{
@@ -37,4 +62,10 @@ footer{
 
 #clear{
     background-color: #ac0d0d;
+}
+
+fieldset
+{
+    display: flex;
+    flex-direction: column;
 }
