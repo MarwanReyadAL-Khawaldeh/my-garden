@@ -3,7 +3,7 @@
 const Flower = function (name, imgName, season) {
     this.name = name;
     this.imgName = imgName;
-    this.path = `../img/${this.imgName}.jpeg`;
+    this.path = `../img/${this.imgName.toLowerCase()}.jpeg`;
     this.season = season;
     Flower.all.push(this);
 };
